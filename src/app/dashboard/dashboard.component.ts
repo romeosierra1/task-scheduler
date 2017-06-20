@@ -21,6 +21,15 @@ export class DashboardComponent implements OnInit {
       .then(tasks => this.finishedTasks = tasks);
   }
 
+  delete(task: Task): void {
+    this.taskService
+      .delete(task.id)
+      .then(() => {
+        this.pendingTasks = this.pendingTasks.filter(t => t !== task);
+        this.finishedTasks = this.finishedTasks.filter(t => t !== task);
+      })
+  }
+
   ngOnInit(): void {
     this.getTasks();
   }
